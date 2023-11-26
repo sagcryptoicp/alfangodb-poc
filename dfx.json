@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "alfangodb_backend": {
+      "main": "src/alfangodb_backend/main.mo",
+      "type": "motoko"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "vessel sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1,
+  "dfx": "0.15.1"
+}
