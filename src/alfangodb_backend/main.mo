@@ -1,5 +1,6 @@
 import Map              "mo:map/Map";
 import Prelude          "mo:base/Prelude";
+import Result "mo:base/Result";
 import Metadata         "data/types/metadata";
 import Payload          "payload/table";
 import Ulid             "utility/ulid";
@@ -31,7 +32,7 @@ shared ({ caller = initializer }) actor class AlfangoDb() = this {
 
     public shared (msg) func createTableItem(
         createItemPayload: Payload.CreateItemPayload
-    ) : async ?Text {
+    ) : async Result.Result<Text, [ Text ]> {
         await DataService.createTableItem({
             createItemPayload;
             databases;

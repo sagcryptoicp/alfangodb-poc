@@ -22,6 +22,7 @@ module {
         #nat8array;
         #principal;
         #tuple;
+        #default;
     };
 
     public type AttributeMetadata = {
