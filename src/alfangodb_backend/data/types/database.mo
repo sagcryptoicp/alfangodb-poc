@@ -1,4 +1,5 @@
 import Map "mo:map/Map";
+import Set "mo:map/Set";
 import Time "mo:base/Time";
 import Metadata "metadata";
 
@@ -26,22 +27,29 @@ module {
         #tuple : [(Text, Text)];
     };
 
+    public type Id = Text;
+    public type AttributeName = Text;
+
     public type Item = {
-        id: Text;
-        data: Map.Map<Text, DataTypeValue>;
-        previousData: Map.Map<Text, DataTypeValue>;
+        id : Id;
+        data : Map.Map<AttributeName, DataTypeValue>;
+        previousData : Map.Map<AttributeName, DataTypeValue>;
         createdAt : Time.Time;
         var updatedAt : Time.Time;
+    };
+    public type Index = {
+        items : Map.Map<DataTypeValue, Set.Set<Id>>;
     };
 
     public type Table = {
         name : Text;
         metadata: Metadata.TableMetadata;
-        items : Map.Map<Text, Item>;
+        items : Map.Map<Id, Item>;
+        indexes : Map.Map<AttributeName, Index>;
     };
 
     public type Database = {
         name : Text;
-        tables: Map.Map<Text, Table>;
+        tables : Map.Map<Text, Table>;
     }; 
 };

@@ -36,7 +36,7 @@ module {
     public type TableIndexMetadata = {
         name: Text;
         nonUnique: Bool;
-        atttributeName: Text;
+        attributeName: Text;
     };
 
     public type TableMetadata = {

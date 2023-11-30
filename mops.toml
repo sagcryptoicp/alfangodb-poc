@@ -1,0 +1,9 @@
+[dependencies]
+base = "0.9.8"
+"base-0.7.3" = "https://github.com/dfinity/motoko-base#moc-0.7.3"
+array = "https://github.com/aviate-labs/array.mo#v0.2.1"
+io = "https://github.com/aviate-labs/io.mo#v0.3.2"
+encoding = "https://github.com/aviate-labs/encoding.mo#v0.4.1"
+rand = "https://github.com/aviate-labs/rand.mo#v0.2.3"
+ulid = "https://github.com/aviate-labs/ulid.mo#v0.1.3"
+map = "https://github.com/ZhenyaUsenko/motoko-hash-map#v9.0.1"
