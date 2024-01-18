@@ -1,11 +1,12 @@
 import Map              "mo:map/Map";
 import Prelude          "mo:base/Prelude";
-import Result "mo:base/Result";
+import Result           "mo:base/Result";
 import Metadata         "data/types/metadata";
 import Payload          "payload/table";
 import Ulid             "utility/ulid";
 import Database         "data/types/database";
 import DataService      "data/service";
+import SearchService    "data/search";
 import { thash }        "mo:map/Map";
 
 shared ({ caller = initializer }) actor class AlfangoDb() = this {
@@ -48,4 +49,12 @@ shared ({ caller = initializer }) actor class AlfangoDb() = this {
         });
     };
 
+    public query (msg) func scan({
+        scanInputType: SearchService.ScanInputType;
+    }) : async ?SearchService.ScanResponseType {
+        SearchService.scan({
+            scanInputType;
+            databases;
+        });
+    };
 };
