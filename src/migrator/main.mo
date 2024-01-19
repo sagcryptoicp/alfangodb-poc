@@ -6,8 +6,8 @@ shared ({ caller = initializer }) actor class DBMigrator() = this {
         createDatabase: shared (createDatabasePayload : Payload.CreateDatabasePayload) -> async ();
     };
     public shared (msg) func createDatabase(
-        createDatabasePayload: Payload.CreateDatabasePayload
-        ) : async () {
-        await db.createDatabase(createDatabasePayload);
-        };
+    createDatabasePayload: Payload.CreateDatabasePayload
+    ) : async () {
+    await db.createDatabase(createDatabasePayload);
+    };
 }
