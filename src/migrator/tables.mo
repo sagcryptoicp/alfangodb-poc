@@ -1,7 +1,20 @@
 import Payload          "../alfangodb_backend/payload/table";
+import Text "mo:base/Text";
+import Array "mo:base/Array";
+
 
 module {
-  public let tables : Payload.CreateTablePayload = {
+  public let databases : [Payload.CreateDatabasePayload] = [
+    {
+      name: Text = "db1";
+    },
+    {
+      name: Text = "db2";
+    }
+  ];
+
+  public let tables : [Payload.CreateTablePayload] = [
+    {
     databaseName : Text = "db1";
     name : Text = "table2";
     attributes = [
@@ -20,5 +33,6 @@ module {
             nonUnique = true;
         }
     ];
-  };
+  },
+  ];
 }

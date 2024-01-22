@@ -1,4 +1,5 @@
 import Map              "mo:map/Map";
+import Debug "mo:base/Debug";
 import Payload          "../alfangodb_backend/payload/table";
 import Tables           "./tables";
 
@@ -11,12 +12,17 @@ shared ({ caller = initializer }) actor class DBMigrator() = this {
     public shared (msg) func createDatabase(
     createDatabasePayload: Payload.CreateDatabasePayload
     ) : async () {
-    await db.createDatabase(createDatabasePayload);
+        for(item in Tables.databases.vals()) {
+            Debug.print(debug_show(item));
+            await db.createDatabase(item);
+        };
     };
 
     public shared (msg) func createDatabaseTable(
         createTablePayload: Payload.CreateTablePayload
     ) : async () {
-    await db.createDatabaseTable(Tables.tables);
+        for(item in Tables.tables.vals()) {
+            await db.createDatabaseTable(item); 
+        };
     };
 }
