@@ -1,29 +1,30 @@
 import Payload          "../alfangodb_backend/payload/table";
-import Text "mo:base/Text";
-import Array "mo:base/Array";
+import Text             "mo:base/Text";
+import Array            "mo:base/Array";
 
 
 module {
   public let databases : [Payload.CreateDatabasePayload] = [
     {
-      name: Text = "db1";
+      name: Text = "db3";
     },
     {
-      name: Text = "db2";
+      name: Text = "db4";
     }
   ];
+  
 
   public let tables : [Payload.CreateTablePayload] = [
-    {
-    databaseName : Text = "db1";
+  {
+    databaseName : Text = "db3";
     name : Text = "table2";
     attributes = [
         {
-            name : Text = "name";
-            dataType = #text;
-            unique = true;
-            required = true;
-            defaultValue = "";
+          name : Text = "name";
+          dataType = #text;
+          unique = true;
+          required = true;
+          defaultValue = "";
         }
     ];
     indexes = [
@@ -34,5 +35,16 @@ module {
         }
     ];
   },
+  ];
+
+  public let tableitems : [Payload.CreateItemPayload] = [
+    {
+        databaseName: Text = "db1";
+        tableName: Text = "table1";
+        data = [ 
+          ( "jay", #text("text") ),
+          ( "rag", #text("text") )
+        ];
+    }
   ];
 }
