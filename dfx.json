@@ -3,6 +3,10 @@
     "alfangodb_backend": {
       "main": "src/alfangodb_backend/main.mo",
       "type": "motoko"
+    },
+    "migrator": {
+      "main": "src/migrator/main.mo",
+      "type": "motoko"
     }
   },
   "defaults": {
