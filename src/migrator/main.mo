@@ -1,13 +1,16 @@
 import Map              "mo:map/Map";
-import Debug "mo:base/Debug";
+import Debug            "mo:base/Debug";
 import Payload          "../alfangodb_backend/payload/table";
-import Tables           "./tables";
+import Tables           "./databases/db";
+import Tables           "./databases/table1";
+
 
 shared ({ caller = initializer }) actor class DBMigrator() = this {
     stable let db = actor ("bkyz2-fmaaa-aaaaa-qaaaq-cai") : actor {
         createDatabase: shared (createDatabasePayload : Payload.CreateDatabasePayload) -> async ();
         createDatabaseTable: shared (createTablePayload: Payload.CreateTablePayload)-> async ();
         createTableItem: shared (createItemPayload: Payload.CreateItemPayload)-> async ();
+        getTableItem: query (getItemPayload: Payload.GetItemPayload)-> async ();
         
     };
     
@@ -31,8 +34,32 @@ shared ({ caller = initializer }) actor class DBMigrator() = this {
     public shared (msg) func createTableItem(
         createItemPayload: Payload.CreateItemPayload
     ) : async () {
-        for(item in Tables.tableitems.vals()) {
+        for(item in Tables.createtableitems.vals()) {
             await db.createTableItem(item);
         };
     };
+
+    // public query (msg) func getTableItem({
+    //     getItemPayload: Payload.GetItemPayload;
+    // }) : async () {
+    //     for(item in Tables.gettableitems.vals()) {
+    //         db.getTableItem(item);
+    //     }; 
+    // };
+
+    // public shared (msg) func deleteTableItem(
+    //     createItemPayload: Payload.CreateItemPayload
+    // ) : async () {
+    //     for(item in Tables.tableitems.vals()) {
+    //         await db.createTableItem(item);
+    //     };
+    // };
+    
+    // public shared (msg) func updateTableItem(
+    //     updateItemPayload: Payload.CreateItemPayload
+    // ) : async () {
+    //     for(item in Tables.tableitems.vals()) {
+    //         await db.updateTableItem(item);
+    //     };
+    // };
 }

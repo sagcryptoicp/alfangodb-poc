@@ -187,6 +187,65 @@ module {
         Prelude.unreachable();
     };
 
+
+    public func updateTableItem({
+        updateItemPayload: Payload.UpdateItemPayload;
+        databases: Map.Map<Text, Database.Database>;
+    }) : async Result.Result<Text, [ Text ]> {
+
+        // check if database exists
+        if (not Map.has(databases, thash, updateItemPayload.databaseName)) {
+            Debug.print("database does not exist");
+            return #err([ "database does not exist" ]);
+        };
+
+        let errorBuffer = Buffer.Buffer<Text>(0);
+        ignore do ?{
+            let database = Map.get(databases, thash, updateItemPayload.databaseName)!;
+
+            // check if table exists
+            if (not Map.has(database.tables, thash, updateItemPayload.tableName)) {
+                errorBuffer.add("table "# debug_show(updateItemPayload.tableName) # " does not exist");
+                Debug.print("error(s) updating item: " # debug_show(Buffer.toArray(errorBuffer)));
+                return #err(Buffer.toArray(errorBuffer));
+            };
+
+            let table = Map.get(database.tables, thash, updateItemPayload.tableName)!;
+
+            // check if item exists
+            if (not Map.has(table.items, thash, updateItemPayload.itemId)) {
+                errorBuffer.add("item "# debug_show(updateItemPayload.itemId) # " does not exist");
+                Debug.print("error(s) updating item: " # debug_show(Buffer.toArray(errorBuffer)));
+                return #err(Buffer.toArray(errorBuffer));
+            };
+
+            let dataAttributeToValueMap = HashMap.fromIter<Text, Database.DataTypeValue>(updateItemPayload.data.vals(), 0, Text.equal, Text.hash);
+            //////////////////////////////// START VALIDATION ////////////////////////////////
+
+            // Perform validation similar to the create function
+
+            // You can reuse the validation functions or create new ones specific to updates.
+
+            ////////////////////////////////   END VALIDATION    ////////////////////////////////
+
+            if (errorBuffer.size() > 0) {
+                Debug.print("error(s) updating item: " # debug_show(Buffer.toArray(errorBuffer)));
+                return #err(Buffer.toArray(errorBuffer));
+            };
+
+            // update item
+            let item = Map.get(table.items, thash, updateItemPayload.itemId)!;
+            item.previousData = item.data;
+            item.data = Map.fromIter<Text, Database.DataTypeValue>(Iter.fromArray(updateItemPayload.data), thash);
+            item.updatedAt = Time.now();
+
+            Debug.print("item updated with id: " # debug_show(item.id));
+            return #ok(item.id);
+        };
+
+        Prelude.unreachable();
+    };
+
     public func getTableItem({
         getItemPayload: Payload.GetItemPayload;
         databases: Map.Map<Text, Database.Database>;
@@ -218,7 +277,6 @@ module {
             let item = Map.get(table.items, thash, getItemPayload.itemId)!;
             return ?Map.toArray(item.data);
         };
-
     };
 
     private func validateItemDataType({

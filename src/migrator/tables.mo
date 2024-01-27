@@ -6,45 +6,82 @@ import Array            "mo:base/Array";
 module {
   public let databases : [Payload.CreateDatabasePayload] = [
     {
-      name: Text = "db3";
+      name: Text = "UserRegistration";
     },
-    {
-      name: Text = "db4";
-    }
   ];
   
 
   public let tables : [Payload.CreateTablePayload] = [
   {
-    databaseName : Text = "db3";
-    name : Text = "table2";
+    databaseName : Text = "UserRegistration";
+    name : Text = "Users";
     attributes = [
         {
-          name : Text = "name";
+          name : Text = "FirstName";
           dataType = #text;
           unique = true;
           required = true;
           defaultValue = "";
-        }
+        },
+        {
+          name : Text = "LastName";
+          dataType = #text;
+          unique = true;
+          required = true;
+          defaultValue = "";
+        },
+        {
+          name : Text = "Email";
+          dataType = #text;
+          unique = true;
+          required = true;
+          defaultValue = "";
+        },
+        {
+          name : Text = "Mobile";
+          dataType = #text;
+          unique = true;
+          required = true;
+          defaultValue = "";
+        },
+        {
+          name : Text = "Subscribers";
+          dataType = #int64;
+          unique = false;
+          required = false;
+          defaultValue = "";  //defaultvalue should be of datatype i give??
+        },
     ];
     indexes = [
          {
-            name : Text = "name";
-            attributeName : Text = "name";
-            nonUnique = true;
+            name : Text = "FirstNameindex";
+            attributeName : Text = "FirstName";
+            nonUnique = false;
         }
     ];
   },
   ];
 
-  public let tableitems : [Payload.CreateItemPayload] = [
+  public let createtableitems : [Payload.CreateItemPayload] = [
     {
-        databaseName: Text = "db1";
-        tableName: Text = "table1";
+        databaseName: Text = "UserRegistration";
+        tableName: Text = "Users";
         data = [ 
-          ( "jay", #text("text") ),
-          ( "rag", #text("text") )
+          ( "FirstName", #text("Jay") ),
+          ( "LastName", #text("Gurnani") ),
+          ( "Email", #text("gurnanijay1999@gmail.com") ),
+          ( "Mobile", #text("9256786789") ),
+          ( "Subscribers", #int64(555555) )
         ];
     }
   ];
+
+  public let gettableitems : [Payload.GetItemPayload] = [
+    {
+        databaseName: Text = "UserRegistration";
+        tableName: Text = "Users";
+        itemId: Text = "0FM9TY580K67D8TRW26ZBRCK0S";
+    }
+  ];
+  
 }

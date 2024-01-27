@@ -21,6 +21,13 @@ module {
         data: [ (Text, Database.DataTypeValue) ];
     };
 
+    public type UpdateItemPayload = {
+        databaseName: Text;
+        tableName: Text;
+        itemId: Text; // ID of the item you want to update
+        data: [ (Text, Database.DataTypeValue) ]; // Updated data
+    };
+
     public type GetItemPayload = {
         databaseName: Text;
         tableName: Text;
