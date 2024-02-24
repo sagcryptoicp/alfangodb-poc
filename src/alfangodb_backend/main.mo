@@ -39,6 +39,15 @@ shared ({ caller = initializer }) actor class AlfangoDb() = this {
         });
     };
 
+    public shared (msg) func updateTableItem(
+    updateItemPayload: Payload.UpdateItemPayload
+    ) : async Result.Result<Text, [ Text ]> {
+        await DataService.updateTableItem({
+            updateItemPayload = updateItemPayload;
+            databases = databases; // Assuming databases is a variable accessible in this scope
+        });
+    };
+
     public query (msg) func getTableItem({
         getItemPayload: Payload.GetItemPayload;
     }) : async ?[ (Text, Database.DataTypeValue) ] {
